@@ -1,0 +1,42 @@
+    <% layout('layouts/boilerplate') %> 
+
+    <div id="cluster-map"></div>
+    <h1>All Campgrounds</h1>
+    
+        <% for(let campground of allcamps) { %> 
+            <div class="card mb-3">
+                <div class="row">
+                    <div class="col-md-4">
+                        <!-- if there's anything at all in the images array, display the first image -->
+                        <% if(campground.images.length) { %> 
+                            <img class="img-fluid" alt="" src="<%=campground.images[0].url%>">
+                        <% } else { %> 
+                            <!-- else, display this default -->
+                            <img class="img-fluid" alt="" src="https://res.cloudinary.com/davlauj34/image/upload/v1660888863/YelpCamp/itxfdtfhofl7ygiaqdyd.jpg">
+                        <% } %> 
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= campground.title %> </h5>
+                            <p class="card-text"><%= campground.description %> </p>
+                            <p class="card-text">
+                                <div class="small text-muted"><%=campground.location%> </div>
+                            </p>
+                            <a href="/campgrounds/<%=campground._id%>" class="btn btn-primary mb-3">View <%=campground.title%> </a>
+                            <% if( currentUser && campground.author.equals(currentUser._id)) { %>
+                            <p class="small card-text text-muted">Submitted by You</p>
+                            <% } else { %> 
+                            <p class="small card-text text-muted">Submitted by <%=campground.author.username%></p>
+                            <% } %> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% } %> 
+
+<script>
+        const mapBoxToken = '<%=process.env.MAPBOX_TOKEN%>';
+        const allcamps = {features: <%- JSON.stringify(allcamps) %>}
+</script>
+
+<script src="/javascripts/clusterMap.js"></script>
