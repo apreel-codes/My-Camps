@@ -1,4 +1,4 @@
-if(process.env.NODE_ENV !== "production"){ //process.env.NODE_ENV is an environment variable that is either development or production
+if(process.env.NODE_ENV === "production"){ //process.env.NODE_ENV is an environment variable that is either development or production
     require('dotenv').config();
 }
 
