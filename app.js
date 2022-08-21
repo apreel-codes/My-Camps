@@ -175,6 +175,7 @@ app.use((err, req, res, next) => {
     res.status(statusCode).render('error', { err }) //passing the 'err' through into the template
 })
 
-app.listen('3000', () => {
-    console.log('LISTENING ON PORT 3000!');
+const port = process.env.PORT || 3000; //heroku has its own specified port number so we don't need to specify however, our default is 3000
+app.listen(port, () => {
+    console.log(`LISTENING ON PORT ${port}!`);
 })
